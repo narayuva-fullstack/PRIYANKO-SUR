@@ -37,6 +37,18 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <>
       <motion.nav
@@ -135,7 +147,7 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-luxury-bg/95 backdrop-blur-xl flex flex-col justify-center px-8 lg:hidden overflow-y-auto"
+            className="fixed inset-0 z-40 bg-luxury-bg/95 backdrop-blur-xl flex flex-col justify-start pt-24 px-8 lg:hidden"
           >
             <div className="flex flex-col gap-3 text-center">
               {NAV_ITEMS.map((item, index) => {
