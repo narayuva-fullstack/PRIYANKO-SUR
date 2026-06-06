@@ -56,6 +56,11 @@ export const PortalTransitionProvider: React.FC<{ children: React.ReactNode }> =
       // Prefetch and then navigate to target R&D lab
       router.push(target);
       
+      // Force scroll to top immediately while the overlay is fully opaque
+      if (typeof window !== "undefined") {
+        window.scrollTo(0, 0);
+      }
+      
       // Keep warping active to let the router load resources, then switch to stabilizing
       const routeTimer = setTimeout(() => {
         setState('stabilizing');
@@ -69,6 +74,10 @@ export const PortalTransitionProvider: React.FC<{ children: React.ReactNode }> =
   // Handle stabilizing fade out once pathname matches the target lab
   useEffect(() => {
     if (state === 'stabilizing') {
+      // Safety fallback scroll to top when new page begins to fade in
+      if (typeof window !== "undefined") {
+        window.scrollTo(0, 0);
+      }
       const stableTimer = setTimeout(() => {
         setState('idle');
       }, 900); // Smooth arrival frequency stabilization
