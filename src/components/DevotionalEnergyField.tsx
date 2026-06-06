@@ -213,7 +213,7 @@ export const DevotionalEnergyField: React.FC = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const mouse = mouseRef.current;
-      const maxAlpha = canvas.width < 768 ? 0.05 : 0.18;
+      const maxAlpha = canvas.width < 768 ? 0.02 : canvas.width < 1024 ? 0.05 : 0.18;
 
       // 1. Draw Mouse Radial Aura Glow
       if (mouse.active) {

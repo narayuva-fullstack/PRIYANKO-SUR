@@ -9,7 +9,7 @@ import { InteractiveCard } from "@/components/InteractiveCard";
 import { usePortalTransition } from "@/context/PortalTransitionContext";
 
 export default function Home() {
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false);
   const [isLabHovered, setIsLabHovered] = useState(false);
   const { state: transitionState, triggerTransition } = usePortalTransition();
   const { tracks, currentTrackIndex, isPlaying, playTrack, pauseTrack } = useAudio();
@@ -58,49 +58,9 @@ export default function Home() {
     },
   ] as const;
 
-  // Handle Splash Screen Timer
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplash(false);
-    }, 2200);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div className="relative min-h-screen text-white overflow-hidden">
-      {/* 1. CINEMATIC INTRO SPLASH */}
-      <AnimatePresence>
-        {showSplash && (
-          <motion.div
-            key="splash"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black"
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-center gap-4 text-center px-6"
-            >
-              <div className="flex gap-1.5 h-10 items-end justify-center">
-                <motion.div className="w-1 bg-luxury-accent rounded-full" animate={{ height: [10, 40, 10] }} transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }} />
-                <motion.div className="w-1 bg-luxury-accent rounded-full" animate={{ height: [18, 52, 18] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2, ease: "easeInOut" }} />
-                <motion.div className="w-1 bg-luxury-accent rounded-full" animate={{ height: [8, 28, 8] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4, ease: "easeInOut" }} />
-              </div>
-              <h1 className="text-2xl font-display font-bold tracking-[0.25em] uppercase text-white mt-4">
-                Priyanko Sur
-              </h1>
-              <p className="text-[9px] font-mono tracking-[0.4em] text-luxury-secondary uppercase">
-                Acoustic Sadhana
-              </p>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* 2. PREMIUM HERO COMPOSITION (TYPOGRAPHY INTEGRATION) */}
+      {/* 1. PREMIUM HERO COMPOSITION (TYPOGRAPHY INTEGRATION) */}
       <section className="relative min-h-screen flex flex-col justify-center items-center px-6 pt-32 pb-20 text-center divine-aura-glow-large">
         {/* Background vignetted portrait (Breathing system) */}
         <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center hero-block-bg">
