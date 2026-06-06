@@ -61,7 +61,9 @@ export default function Home() {
   return (
     <div className="relative min-h-screen text-white overflow-hidden">
       {/* 1. PREMIUM HERO COMPOSITION (TYPOGRAPHY INTEGRATION) */}
-      <section className="relative min-h-screen flex flex-col justify-center items-center px-6 pt-32 pb-20 text-center divine-aura-glow-large">
+      <section className="relative min-h-screen flex flex-col justify-center items-center px-6 pt-32 pb-0 text-center divine-aura-glow-large">
+        {/* Cinematic bottom fade overlay */}
+        <div className="hero-fade-overlay" />
         {/* Background vignetted portrait (Breathing system) */}
         <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center hero-block-bg">
           <motion.div
@@ -135,7 +137,7 @@ export default function Home() {
       </section>
 
       {/* 3. ARTIST PHILOSOPHY QUOTE (EDITORIAL NEW AGE STYLE) */}
-      <section className="py-24 border-t border-white/5 relative divine-aura-glow">
+      <section className="py-24 relative divine-aura-glow">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="flex flex-col gap-6 items-center">
             <span className="text-[10px] font-mono text-luxury-accent tracking-[0.2em] uppercase">
