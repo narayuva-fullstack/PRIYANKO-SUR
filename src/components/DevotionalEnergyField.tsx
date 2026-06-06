@@ -213,6 +213,7 @@ export const DevotionalEnergyField: React.FC = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const mouse = mouseRef.current;
+      const maxAlpha = canvas.width < 768 ? 0.05 : 0.18;
 
       // 1. Draw Mouse Radial Aura Glow
       if (mouse.active) {
@@ -285,11 +286,11 @@ export const DevotionalEnergyField: React.FC = () => {
         // Opacity profile: fades in at edge, fades out towards center
         let alpha = 0;
         if (w.r < 180) {
-          alpha = (w.r / 180) * 0.18;
+          alpha = (w.r / 180) * maxAlpha;
         } else {
-          alpha = (1 - (w.r - 180) / (w.maxR - 180)) * 0.18;
+          alpha = (1 - (w.r - 180) / (w.maxR - 180)) * maxAlpha;
         }
-        alpha = Math.max(0, Math.min(0.18, alpha)) * currentAmp.current;
+        alpha = Math.max(0, Math.min(maxAlpha, alpha)) * currentAmp.current;
         ctx.strokeStyle = w.color.replace("ALPHA", alpha.toString());
 
         const segments = 90;
@@ -343,11 +344,11 @@ export const DevotionalEnergyField: React.FC = () => {
         // Opacity profile
         let alpha = 0;
         if (w.r < 180) {
-          alpha = (w.r / 180) * 0.18;
+          alpha = (w.r / 180) * maxAlpha;
         } else {
-          alpha = (1 - (w.r - 180) / (w.maxR - 180)) * 0.18;
+          alpha = (1 - (w.r - 180) / (w.maxR - 180)) * maxAlpha;
         }
-        alpha = Math.max(0, Math.min(0.18, alpha)) * currentAmp.current;
+        alpha = Math.max(0, Math.min(maxAlpha, alpha)) * currentAmp.current;
         ctx.strokeStyle = w.color.replace("ALPHA", alpha.toString());
 
         const segments = 90;
