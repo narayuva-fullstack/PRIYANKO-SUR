@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useAudio } from "@/context/AudioContext";
-import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Maximize2, Minimize2, Activity, Music } from "lucide-react";
+import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Maximize2, Minimize2, Activity, Music, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Particle {
@@ -32,6 +32,7 @@ export const AudioPlayer: React.FC = () => {
     playTrack,
     pauseTrack,
     resumeTrack,
+    stopPlayback,
     nextTrack,
     prevTrack,
     setVolume,
@@ -42,6 +43,7 @@ export const AudioPlayer: React.FC = () => {
 
   const [isMinimized, setIsMinimized] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [prevVolume, setPrevVolume] = useState(0.8);
   const [isPlayHovered, setIsPlayHovered] = useState(false);
   const [isMouseOverPlayer, setIsMouseOverPlayer] = useState(false);
@@ -60,6 +62,26 @@ export const AudioPlayer: React.FC = () => {
 
   // Note: particle trigger helpers are declared below. We update refs in an effect
   // after the helpers exist to avoid accessing functions before declaration.
+
+  const handleClose = useCallback(() => {
+    if (isClosing) return;
+
+    setIsClosing(true);
+    setIsPlayHovered(false);
+    setIsMouseOverPlayer(false);
+    particlesRef.current = [];
+    if (visualizerAnimRef.current) {
+      cancelAnimationFrame(visualizerAnimRef.current);
+      visualizerAnimRef.current = null;
+    }
+    if (particleAnimRef.current) {
+      cancelAnimationFrame(particleAnimRef.current);
+      particleAnimRef.current = null;
+    }
+
+    stopPlayback();
+    setIsClosing(false);
+  }, [isClosing, stopPlayback]);
 
   // Handle cursor moves relative to player container for magnetic gravity pulls
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -161,6 +183,19 @@ export const AudioPlayer: React.FC = () => {
     }
     isPlayingRef.current = isPlaying;
   }, [isPlaying]);
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && (currentTrackIndex !== null || activeFrequency)) {
+        handleClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [currentTrackIndex, activeFrequency, handleClose]);
 
   // Synchronize dynamic frequency visualizer canvas (60-120fps)
   useEffect(() => {
@@ -436,7 +471,7 @@ export const AudioPlayer: React.FC = () => {
         cancelAnimationFrame(particleAnimRef.current);
       }
     };
-  }, [isMinimized, isPlayHovered, isMouseOverPlayer, mousePos, analyzerNode, isPlaying, currentTime]);
+  }, [isMinimized, isPlayHovered, isMouseOverPlayer, mousePos, analyzerNode, isPlaying, currentTime, duration, activeFrequency]);
 
   if (currentTrackIndex === null && !activeFrequency) return null;
 
@@ -481,47 +516,73 @@ export const AudioPlayer: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 max-w-sm w-full px-4 sm:px-0 select-none">
+    <>
+      <div
+        aria-hidden="true"
+        className={`${isMinimized ? "h-28 sm:h-24" : "h-[360px] sm:h-[340px]"} shrink-0`}
+      />
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex w-full flex-col items-stretch gap-3 px-3 pb-[max(1rem,env(safe-area-inset-bottom))] sm:inset-x-auto sm:right-5 sm:bottom-5 sm:max-w-sm sm:items-end sm:px-0 sm:pb-0 md:right-6 lg:right-8 select-none">
       <AnimatePresence mode="wait">
-        {isMinimized ? (
+        {!isClosing && isMinimized ? (
           /* MINIMIZED CAPSULE STATE */
-          <motion.button
+          <motion.div
             key="minimized"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            onClick={() => setIsMinimized(false)}
-            className="glass p-4 rounded-full shadow-[0_15px_45px_rgba(0,0,0,0.6)] flex items-center gap-3 text-white hover:border-luxury-accent/30 group cursor-pointer"
+            initial={{ y: 18, scale: 0.96, opacity: 0 }}
+            animate={{ y: 0, scale: 1, opacity: 1 }}
+            exit={{ y: 18, scale: 0.96, opacity: 0 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="glass pointer-events-auto w-full rounded-2xl border-white/10 p-3 shadow-[0_15px_45px_rgba(0,0,0,0.6)] text-white sm:w-auto sm:rounded-full sm:p-4"
           >
-            <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-luxury-bg border border-white/10 group-hover:border-luxury-accent/20">
-              {isPlaying ? (
-                <Activity size={14} className="text-luxury-accent animate-pulse" />
-              ) : (
-                <Music size={14} />
-              )}
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                aria-label="Expand now playing"
+                onClick={() => setIsMinimized(false)}
+                className="group flex min-w-0 flex-1 items-center gap-3 text-left cursor-pointer sm:flex-none"
+              >
+                <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-luxury-bg border border-white/10 group-hover:border-luxury-accent/25">
+                  {isPlaying ? (
+                    <Activity size={14} className="text-luxury-accent animate-pulse" />
+                  ) : (
+                    <Music size={14} />
+                  )}
+                </div>
+                <div className="flex min-w-0 flex-col items-start pr-1">
+                  <span className="text-[10px] font-mono text-luxury-muted uppercase tracking-wider">
+                    Now {isPlaying ? "Playing" : "Paused"}
+                  </span>
+                  <span className="max-w-[210px] truncate text-xs font-serif font-medium sm:max-w-[120px]">
+                    {activeFrequency ? `Nada-Bramh ${activeFrequency}Hz` : activeTrack?.title}
+                  </span>
+                </div>
+                <Maximize2 size={12} className="shrink-0 text-luxury-secondary group-hover:text-white" />
+              </button>
+              <button
+                type="button"
+                aria-label="Close now playing and stop audio"
+                onClick={handleClose}
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 text-luxury-secondary transition-colors hover:bg-white/5 hover:text-white cursor-pointer"
+              >
+                <X size={15} />
+              </button>
             </div>
-            <div className="flex flex-col items-start pr-2">
-              <span className="text-[10px] font-mono text-luxury-muted uppercase tracking-wider">
-                Now {isPlaying ? "Playing" : "Paused"}
-              </span>
-              <span className="text-xs font-serif font-medium max-w-[120px] truncate">
-                {activeFrequency ? `Nada-Bramh ${activeFrequency}Hz` : activeTrack?.title}
-              </span>
-            </div>
-            <Maximize2 size={12} className="text-luxury-secondary group-hover:text-white" />
-          </motion.button>
-        ) : (
+          </motion.div>
+        ) : !isClosing ? (
           /* EXPANDED INTERACTIVE WORK OF ART */
           <motion.div
             ref={playerContainerRef}
             key="expanded"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 50, opacity: 0 }}
+            role="region"
+            aria-label="Now playing audio player"
+            aria-live="polite"
+            initial={{ y: 36, opacity: 0, scale: 0.97 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: 24, opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsMouseOverPlayer(true)}
             onMouseLeave={() => setIsMouseOverPlayer(false)}
-            className="glass rounded-3xl p-6 shadow-[0_25px_60px_-10px_rgba(0,0,0,0.7)] w-full flex flex-col gap-4 border border-white/10 relative overflow-hidden"
+            className="glass pointer-events-auto w-full max-h-[calc(100dvh-6rem)] overflow-hidden rounded-2xl border border-white/10 p-4 shadow-[0_25px_60px_-10px_rgba(0,0,0,0.7)] flex flex-col gap-4 relative sm:rounded-3xl sm:p-6"
           >
             {/* GPU Particle Canvas Overlay (Non-clickable, captures rendering) */}
             <canvas
@@ -575,18 +636,32 @@ export const AudioPlayer: React.FC = () => {
                   </span>
                 </div>
               </div>
-              <button
-                onClick={() => setIsMinimized(true)}
-                className="p-2 rounded-full hover:bg-white/5 text-luxury-secondary hover:text-white transition-colors cursor-pointer border border-transparent hover:border-white/5"
-              >
-                <Minimize2 size={13} />
-              </button>
+              <div className="flex shrink-0 items-center gap-1">
+                <button
+                  type="button"
+                  aria-label="Minimize now playing"
+                  onClick={() => setIsMinimized(true)}
+                  className="p-2 rounded-full hover:bg-white/5 text-luxury-secondary hover:text-white transition-colors cursor-pointer border border-transparent hover:border-white/5"
+                >
+                  <Minimize2 size={13} />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Close now playing and stop audio"
+                  onClick={handleClose}
+                  className="p-2 rounded-full hover:bg-white/5 text-luxury-secondary hover:text-white transition-colors cursor-pointer border border-white/10 hover:border-white/15"
+                >
+                  <X size={14} />
+                </button>
+              </div>
             </div>
 
             {playbackError && !activeFrequency && (
               <div className="relative z-20 rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-xs text-amber-100 flex items-center justify-between gap-3">
                 <span className="leading-relaxed">{playbackError}</span>
                 <button
+                  type="button"
+                  aria-label="Retry audio playback"
                   onClick={handleRetryPlayback}
                   className="shrink-0 rounded-full border border-amber-400/30 px-3 py-1.5 font-mono uppercase tracking-widest text-[10px] text-amber-100 hover:bg-amber-400/10 transition-colors"
                 >
@@ -600,6 +675,8 @@ export const AudioPlayer: React.FC = () => {
               <canvas ref={visualizerCanvasRef} className="w-full h-full" />
               {activeFrequency && (
                 <button
+                  type="button"
+                  aria-label="Stop resonance tone"
                   onClick={stopSynthesis}
                   className="absolute inset-0 flex items-center justify-center bg-black/60 text-[9.5px] font-mono text-luxury-accent opacity-0 hover:opacity-100 transition-opacity cursor-pointer font-bold tracking-widest"
                 >
@@ -613,6 +690,7 @@ export const AudioPlayer: React.FC = () => {
               <div className="flex flex-col gap-2 relative z-20">
                 <div ref={progressContainerRef} className="relative flex items-center h-2 group/progress cursor-pointer">
                   <input
+                    aria-label="Track progress"
                     type="range"
                     min="0"
                     max={duration || 100}
@@ -645,6 +723,8 @@ export const AudioPlayer: React.FC = () => {
             <div className="flex items-center justify-between gap-4 mt-1 relative z-20">
               <div className="flex items-center gap-2">
                 <button
+                  type="button"
+                  aria-label={isMuted || volume === 0 ? "Unmute audio" : "Mute audio"}
                   onClick={toggleMute}
                   className="p-2 rounded-full hover:bg-white/5 text-luxury-secondary hover:text-white transition-colors cursor-pointer border border-transparent hover:border-white/5"
                 >
@@ -652,6 +732,7 @@ export const AudioPlayer: React.FC = () => {
                 </button>
                 <div className="relative flex items-center h-4 w-16 group/vol cursor-pointer">
                   <input
+                    aria-label="Volume"
                     type="range"
                     min="0"
                     max="1"
@@ -672,6 +753,8 @@ export const AudioPlayer: React.FC = () => {
               <div className="flex items-center gap-3">
                 {!activeFrequency && (
                   <button
+                    type="button"
+                    aria-label="Previous track"
                     onClick={prevTrack}
                     className="p-2.5 rounded-full hover:bg-white/5 text-luxury-secondary hover:text-white transition-colors cursor-pointer border border-transparent hover:border-white/5"
                   >
@@ -682,6 +765,8 @@ export const AudioPlayer: React.FC = () => {
                 {/* Animated Play button triggering particles */}
                 <button
                   ref={playBtnRef}
+                  type="button"
+                  aria-label={isPlaying ? "Pause audio" : "Play audio"}
                   onClick={handlePlayPause}
                   onMouseEnter={() => setIsPlayHovered(true)}
                   onMouseLeave={() => setIsPlayHovered(false)}
@@ -696,6 +781,8 @@ export const AudioPlayer: React.FC = () => {
 
                 {!activeFrequency && (
                   <button
+                    type="button"
+                    aria-label="Next track"
                     onClick={nextTrack}
                     className="p-2.5 rounded-full hover:bg-white/5 text-luxury-secondary hover:text-white transition-colors cursor-pointer border border-transparent hover:border-white/5"
                   >
@@ -705,8 +792,9 @@ export const AudioPlayer: React.FC = () => {
               </div>
             </div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
-    </div>
+      </div>
+    </>
   );
 };

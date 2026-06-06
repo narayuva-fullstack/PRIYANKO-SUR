@@ -26,6 +26,7 @@ interface AudioContextType {
   playTrack: (index: number) => void;
   pauseTrack: () => void;
   resumeTrack: () => void;
+  stopPlayback: () => void;
   nextTrack: () => void;
   prevTrack: () => void;
   setVolume: (vol: number) => void;
@@ -127,6 +128,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const oscRef = useRef<OscillatorNode | null>(null);
   const gainRef = useRef<GainNode | null>(null);
   const analyzerRef = useRef<AnalyserNode | null>(null);
+  const playbackSessionRef = useRef(0);
 
   // Maintain refs to avoid stale closures in event listeners
   const currentTrackIndexRef = useRef<number | null>(null);
@@ -134,6 +136,15 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const nextTrackRef = useRef<() => void>(() => {});
 
   const [analyzerNodeState, setAnalyzerNodeState] = useState<AnalyserNode | null>(null);
+
+  const clearAudioElement = () => {
+    if (!audioRef.current) return;
+
+    audioRef.current.pause();
+    audioRef.current.currentTime = 0;
+    audioRef.current.removeAttribute("src");
+    audioRef.current.load();
+  };
   
   // Setup HTML Audio element on mount (runs exactly once)
   useEffect(() => {
@@ -207,7 +218,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const playTrack = (index: number) => {
     initAudioCtx();
-    stopSynthesis(); // Turn off frequency generator if playing a song
+    stopSynthesisNodes();
     setPlaybackError(null);
     const track = TRACK_LIST[index];
     if (!track || !audioRef.current) return;
@@ -217,17 +228,29 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       return;
     }
 
+    clearAudioElement();
+    const sessionId = playbackSessionRef.current + 1;
+    playbackSessionRef.current = sessionId;
+    setCurrentTime(0);
+    setDuration(0);
+    setIsPlaying(false);
     currentTrackIndexRef.current = index;
+    setCurrentTrackIndex(index);
     audioRef.current.src = track.url;
     audioRef.current.volume = volume;
     audioRef.current.play()
       .then(() => {
+        if (playbackSessionRef.current !== sessionId) return;
         setIsPlaying(true);
-        setCurrentTrackIndex(index);
       })
       .catch((err) => {
+        if (playbackSessionRef.current !== sessionId) return;
         console.error("Audio playback failed:", err);
         setPlaybackError(`Unable to start "${track.title}". Please retry.`);
+        currentTrackIndexRef.current = null;
+        setCurrentTrackIndex(null);
+        setCurrentTime(0);
+        setDuration(0);
         setIsPlaying(false);
       });
   };
@@ -239,13 +262,33 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
+  const stopPlayback = () => {
+    playbackSessionRef.current += 1;
+    stopSynthesisNodes();
+
+    clearAudioElement();
+
+    currentTrackIndexRef.current = null;
+    setCurrentTrackIndex(null);
+    setCurrentTime(0);
+    setDuration(0);
+    setIsPlaying(false);
+    setPlaybackError(null);
+  };
+
   const resumeTrack = () => {
     initAudioCtx();
     setPlaybackError(null);
     if (audioRef.current && currentTrackIndexRef.current !== null) {
+      const sessionId = playbackSessionRef.current;
       audioRef.current.play()
-        .then(() => setIsPlaying(true))
+        .then(() => {
+          if (playbackSessionRef.current === sessionId) {
+            setIsPlaying(true);
+          }
+        })
         .catch((err) => {
+          if (playbackSessionRef.current !== sessionId) return;
           console.error("Audio resume failed:", err);
           setPlaybackError("Unable to resume playback. Please retry.");
         });
@@ -295,14 +338,19 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Sound Healing Waveform Synthesis
   const toggleSynthesis = (freq: number) => {
     initAudioCtx();
-    pauseTrack();
+    playbackSessionRef.current += 1;
+    clearAudioElement();
+    currentTrackIndexRef.current = null;
+    setCurrentTrackIndex(null);
+    setCurrentTime(0);
+    setDuration(0);
 
     if (activeFrequency === freq) {
       stopSynthesis();
       return;
     }
 
-    stopSynthesis();
+    stopSynthesisNodes();
     const ctx = audioCtxRef.current;
     const analyzer = analyzerRef.current;
     if (!ctx || !analyzer) return;
@@ -326,12 +374,12 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     currentTrackIndexRef.current = null;
   };
 
-  function stopSynthesis() {
+  function stopSynthesisNodes() {
     if (oscRef.current) {
       try {
         oscRef.current.stop();
         oscRef.current.disconnect();
-      } catch (err: unknown) {}
+      } catch {}
       oscRef.current = null;
     }
     if (gainRef.current) {
@@ -339,6 +387,10 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       gainRef.current = null;
     }
     setActiveFrequency(null);
+  }
+
+  function stopSynthesis() {
+    stopSynthesisNodes();
     setIsPlaying(false);
   }
 
@@ -356,6 +408,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         playTrack,
         pauseTrack,
         resumeTrack,
+        stopPlayback,
         nextTrack,
         prevTrack,
         setVolume,

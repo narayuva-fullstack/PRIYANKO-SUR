@@ -83,8 +83,8 @@ body {
 }
 
 .heading-safe {
-  line-height: 1.14;
-  padding-block: 0.1em;
+  line-height: 1.20;
+  padding-block: 0.12em;
   text-wrap: balance;
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
@@ -92,8 +92,8 @@ body {
 }
 
 :where(h1, h2, h3, h4, h5, h6) {
-  line-height: 1.14;
-  padding-block: 0.1em;
+  line-height: 1.20;
+  padding-block: 0.12em;
   text-wrap: balance;
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
@@ -297,4 +297,96 @@ html[data-lang="ja"], html[data-lang="zh-CN"], html[data-lang="zh-TW"], html[dat
   font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
 }
 
+@layer base {
+  /* Global layout & responsive safeguards */
+  :root {
+    --space-0: 4px;
+    --space-1: 8px;
+    --space-2: 12px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 32px;
+    --container-max: 1280px;
+  }
 
+  *,*::before,*::after { box-sizing: border-box; }
+
+  img, picture, svg, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  img[data-preserve-focal], img.preserve-focal {
+    object-fit: contain;
+  }
+
+  :where(h1,h2,h3,h4,h5,h6) {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+
+  /* Prevent unexpected horizontal overflow from long words or inline elements */
+  html, body { min-width: 0; }
+
+  /* Utility to keep large containers centered and consistent */
+  .site-container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+
+  /* Card balance defaults */
+  .card, .album, .media-card, .gallery-item, article {
+    display: block;
+    overflow: visible;
+    border-radius: 12px;
+  }
+
+  /* Defensive: prefer fluid images inside cards */
+  .card img, .album img, .media-card img { width: 100%; height: auto; display: block; }
+
+  /* Balanced card system utilities */
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-luxury-card);
+  }
+
+  .card-media {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-content {
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    flex: 1 1 auto;
+  }
+
+  .card-footer { padding: calc(var(--space-2)); }
+}
+
+@media (max-width: 768px) {
+  .legacy-stage-image {
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+}

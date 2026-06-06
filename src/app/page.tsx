@@ -202,7 +202,7 @@ export default function Home() {
                 <img
                   src="/images/shows/1.jpg"
                   alt="Pune Festival Concert Stage"
-                  className="w-full h-full object-cover object-center md:object-[28%_50%] lg:object-[34%_50%] cinematic-img"
+                  className="legacy-stage-image w-full h-full object-contain object-center md:object-cover md:object-[28%_50%] lg:object-[34%_50%] cinematic-img"
                 />
                 <div className="vignette-overlay-soft" />
                 <div className="absolute bottom-6 left-6 z-20">
