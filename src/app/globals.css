@@ -891,3 +891,14 @@ html[data-lang="ko"] {
 .animate-camera-detonation {
   animation: camera-detonation 0.22s infinite linear;
 }
+
+/* Responsive wrapper to block background waves from overlapping hero portrait */
+.hero-block-bg {
+  background: #050505 !important; /* Solid block on mobile viewports */
+}
+
+@media (min-w: 768px) {
+  .hero-block-bg {
+    background: radial-gradient(circle at center, rgba(5,5,5,1) 0%, rgba(5,5,5,1) 45%, rgba(5,5,5,0) 75%) !important; /* Smooth fade on desktop */
+  }
+}

@@ -103,12 +103,7 @@ export default function Home() {
       {/* 2. PREMIUM HERO COMPOSITION (TYPOGRAPHY INTEGRATION) */}
       <section className="relative min-h-screen flex flex-col justify-center items-center px-6 pt-32 pb-20 text-center divine-aura-glow-large">
         {/* Background vignetted portrait (Breathing system) */}
-        <div 
-          className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center"
-          style={{
-            background: "radial-gradient(circle at center, rgba(5,5,5,1) 0%, rgba(5,5,5,0.85) 35%, rgba(5,5,5,0) 70%)"
-          }}
-        >
+        <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center hero-block-bg">
           <motion.div
             initial={{ scale: 1.15, filter: "blur(20px)", opacity: 0 }}
             animate={showSplash ? {} : { scale: 1.05, filter: "blur(0px)", opacity: 0.25 }}
