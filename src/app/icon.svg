@@ -1,0 +1,24 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Premium Metallic Gold Gradient -->
+    <linearGradient id="favGold" x1="15%" y1="15%" x2="85%" y2="85%">
+      <stop offset="0%" stop-color="#bf953f" />
+      <stop offset="25%" stop-color="#fcf6ba" />
+      <stop offset="50%" stop-color="#b38728" />
+      <stop offset="75%" stop-color="#fbf5b7" />
+      <stop offset="100%" stop-color="#aa771c" />
+    </linearGradient>
+  </defs>
+
+  <!-- True Crossover Monogram (Bold stroke for legibility at small sizes) -->
+  <path
+    d="M50,75 L50,25 C65,25 65,46 50,46 C35,46 32,58 48,66 C64,74 64,58 50,50 C36,42 36,26 50,25"
+    stroke="url(#favGold)"
+    stroke-width="7.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Sacred Crown Bindu -->
+  <circle cx="50" cy="15" r="5.5" fill="url(#favGold)" />
+</svg>
