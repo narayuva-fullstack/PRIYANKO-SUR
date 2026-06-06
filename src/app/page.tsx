@@ -116,7 +116,7 @@ export default function Home() {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="text-[10px] font-mono tracking-[0.3em] uppercase text-luxury-accent hover-tracking"
           >
-            Sadhana of Nada-Bramh
+            Music Director & Composer
           </motion.span>
 
           <motion.h1
@@ -125,8 +125,8 @@ export default function Home() {
             transition={{ delay: 0.5, duration: 1 }}
             className="text-hero font-display font-bold text-reveal tracking-tighter heading-safe"
           >
-            Preserving Frequencies.<br />
-            Reimagining Sound.
+            Cinematic Soundscapes.<br />
+            Orchestral Stories.
           </motion.h1>
 
           <motion.p
@@ -135,7 +135,7 @@ export default function Home() {
             transition={{ delay: 0.7, duration: 1 }}
             className="text-sm md:text-base text-luxury-secondary max-w-2xl leading-relaxed font-sans font-light"
           >
-            Bridging the medical application of ancient Sanskrit sound vibrations with contemporary electronic orchestration and acoustic science.
+            Composing expansive themes, evocative background scores, and premium trailer layers for television, OTT, and visual media, synthesizing rich orchestral colors with contemporary synthesis and ancient acoustic science.
           </motion.p>
 
           <motion.div
@@ -144,18 +144,18 @@ export default function Home() {
             transition={{ delay: 0.9, duration: 1 }}
             className="flex flex-col sm:flex-row items-center gap-4 mt-6"
           >
+            <Link
+              href="/cinema"
+              className="px-8 py-3 rounded-full bg-white text-luxury-bg hover:bg-neutral-200 transition-all font-heading font-medium text-xs tracking-wider uppercase flex items-center justify-center gap-2"
+            >
+              Explore Scoring Portfolio
+            </Link>
             <button
               onClick={() => playTrack(0)}
-              className="px-8 py-3 rounded-full bg-white text-luxury-bg hover:bg-neutral-200 transition-all font-heading font-medium text-xs tracking-wider uppercase flex items-center gap-2"
+              className="px-8 py-3 rounded-full border border-white/10 hover:border-white/20 transition-all font-heading text-xs tracking-wider uppercase flex items-center justify-center gap-2 group text-luxury-secondary hover:text-white"
             >
-              <Play size={14} fill="currentColor" /> Listen Opening Chant
+              <Play size={12} fill="currentColor" /> Sample Theme Chant
             </button>
-            <Link
-              href="/research"
-              className="px-8 py-3 rounded-full border border-white/10 hover:border-white/20 transition-all font-heading text-xs tracking-wider uppercase flex items-center gap-2 group text-luxury-secondary hover:text-white"
-            >
-              Explore R & D Lab <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
           </motion.div>
         </div>
       </section>
@@ -164,11 +164,11 @@ export default function Home() {
       <section className="py-24 border-t border-white/5 relative bg-black divine-aura-glow">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="flex flex-col gap-6 items-center">
-            <span className="text-[10px] font-mono text-luxury-muted tracking-[0.2em] uppercase">
-              Artistic Philosophy
+            <span className="text-[10px] font-mono text-luxury-accent tracking-[0.2em] uppercase">
+              Creative Philosophy
             </span>
             <p className="text-editorial-fluid text-luxury-secondary max-w-3xl leading-relaxed font-light">
-              Nada-Bramh is the primordial vibration of existence. By translating this light and sound into mathematical frequencies, we do not just compose music; we restore coherence to human cellular life.
+              Music is the bridge between the unseen and the felt. By combining modern cinematic orchestrations with the mathematical resonance of ancient sound frequencies, we create visual narratives that do not just underscore a scene—they align the listener's consciousness.
             </p>
             <div className="h-px w-12 bg-luxury-accent/30 mt-2" />
           </div>
@@ -216,13 +216,13 @@ export default function Home() {
             {/* Asymmetrical Right content block (Luxury Spacing) */}
             <div className="md:col-span-6 flex flex-col gap-6 pl-0 md:pl-8">
               <span className="text-xs font-mono text-luxury-accent">
-                20 Years of Chanting Research
+                Orchestral & Electronic Fusion
               </span>
               <h3 className="text-3xl font-serif font-semibold text-white heading-safe">
-                Vedic Chants and Contemporary Soundscapes
+                Original Soundtracks & Scoring
               </h3>
               <p className="text-sm text-luxury-secondary leading-relaxed font-sans font-light lg:max-w-[70%]">
-                Under the guidance of his GuruViswanarayan, Priyanko Sur has mapped the mathematical variables of Vedic meters. By blending traditional vocal intonations with pop, EDM, and world ambient synthesis, he creates sonic textures designed to heal the listener.
+                Drawing from two decades of classical Hindustani and Carnatic study, Priyanko Sur designs expansive acoustic structures for visual media, film titles, and live stages. Blending orchestral strings, electronic ambient synthesis, and sacred frequencies, his compositions form rich, emotional soundscapes that draw viewers deep into the story.
               </p>
 
               {/* Overlaying floating frame (overlapping layout depth) */}
@@ -357,45 +357,63 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. INTERACTIVE RESEARCH TEASER */}
+      {/* 7. CINEMA SCORING & RESEARCH TEASERS */}
       <section className="py-24 border-t border-white/5 relative bg-luxury-surface/10 divine-aura-glow">
         <div className="max-w-5xl mx-auto px-6">
-          <InteractiveCard cardType="default" className="p-8 md:p-12 relative overflow-hidden flex flex-col md:flex-row gap-8 items-center justify-between border-white/5">
+          <InteractiveCard cardType="default" className="p-8 md:p-12 relative overflow-hidden flex flex-col border-white/5">
             <div className="absolute inset-0 bg-radial-ambient pointer-events-none opacity-30" />
 
-            <div className="relative z-10 flex flex-col gap-4 max-w-lg">
-              <span className="text-[9px] font-mono text-luxury-accent uppercase tracking-widest hover-tracking">
-                Scientific Applications
-              </span>
-              <h3 className="text-2xl md:text-3xl font-heading font-bold text-white heading-safe">
-                Synthesized Frequency Research
-              </h3>
-              <p className="text-xs text-luxury-secondary leading-relaxed font-sans font-light">
-                Discover the Nada-Bramh Lab. Interact with pure harmonic frequencies mapped to cellular research, and explore the ancient science of bio-resonance in real-time.
-              </p>
-              <div className="mt-2">
-                <Link
-                  href="/research"
-                  className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-luxury-accent hover:text-white transition-colors group"
-                >
-                  Enter Visualizer Lab <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
+            <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center justify-between w-full">
+              <div className="flex flex-col gap-4 max-w-lg">
+                <span className="text-[9px] font-mono text-luxury-accent uppercase tracking-widest hover-tracking">
+                  Cinema & Visual Media
+                </span>
+                <h3 className="text-2xl md:text-3xl font-heading font-bold text-reveal heading-safe">
+                  Scoring Original Visual Narratives
+                </h3>
+                <p className="text-xs text-luxury-secondary leading-relaxed font-sans font-light">
+                  From large-scale orchestral arrangements to intimate narrative sound design. Explore scoring portfolios tailored for Netflix, Disney, and global media producers.
+                </p>
+                <div className="mt-2">
+                  <Link
+                    href="/cinema"
+                    className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-luxury-accent hover:text-white transition-colors group"
+                  >
+                    Explore Cinema Works <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="w-full max-w-[280px] aspect-square rounded-2xl bg-luxury-bg/50 border border-white/5 flex items-center justify-center p-6">
+                <div className="flex flex-col gap-1 items-center w-full">
+                  <div className="flex gap-1 items-end h-16 justify-center w-full">
+                    <div className="w-1 bg-luxury-accent/30 rounded-full h-10 animate-pulse" />
+                    <div className="w-1 bg-luxury-accent/50 rounded-full h-6 animate-pulse delay-75" />
+                    <div className="w-1 bg-luxury-accent rounded-full h-14 animate-pulse" />
+                    <div className="w-1 bg-luxury-accent/50 rounded-full h-8 animate-pulse delay-100" />
+                    <div className="w-1 bg-luxury-accent/30 rounded-full h-12 animate-pulse" />
+                  </div>
+                  <span className="text-[9px] font-mono text-luxury-secondary uppercase mt-4 tracking-widest">
+                    Audio Sync Active
+                  </span>
+                </div>
               </div>
             </div>
 
-            <div className="relative z-10 w-full max-w-[280px] aspect-square rounded-2xl bg-luxury-bg/50 border border-white/5 flex items-center justify-center p-6">
-              <div className="flex flex-col gap-1 items-center w-full">
-                <div className="flex gap-1 items-end h-16 justify-center w-full">
-                  <div className="w-1 bg-luxury-accent/30 rounded-full h-8 animate-pulse" />
-                  <div className="w-1 bg-luxury-accent/50 rounded-full h-12 animate-pulse delay-75" />
-                  <div className="w-1 bg-luxury-accent rounded-full h-16 animate-pulse" />
-                  <div className="w-1 bg-luxury-accent/50 rounded-full h-10 animate-pulse delay-100" />
-                  <div className="w-1 bg-luxury-accent/30 rounded-full h-6 animate-pulse" />
-                </div>
-                <span className="text-[9px] font-mono text-luxury-secondary uppercase mt-4 tracking-widest">
-                  Active Resonance Matrix
-                </span>
+            {/* Secondary Gateway to R&D Lab */}
+            <div className="relative z-10 border-t border-white/5 pt-6 mt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 w-full">
+              <div className="flex flex-col gap-1">
+                <span className="text-[10px] font-mono text-luxury-muted uppercase tracking-wider">Scientific R&D Sub-Universe</span>
+                <p className="text-[11px] text-luxury-secondary font-light max-w-md">
+                  Discover the mathematical parameters of Vedic sound vibration and pure frequencies in the separate R&D portal.
+                </p>
               </div>
+              <Link 
+                href="/research" 
+                className="text-[10px] font-mono text-luxury-accent hover:text-white transition-colors flex items-center gap-1 uppercase tracking-widest font-semibold"
+              >
+                Enter Nada-Bramh Lab &rarr;
+              </Link>
             </div>
           </InteractiveCard>
         </div>

@@ -96,13 +96,13 @@ export default function Research() {
         {/* Header Section */}
         <div className="flex flex-col gap-4 text-center items-center">
           <span className="text-[10px] font-mono text-luxury-accent uppercase tracking-widest">
-            Sound Science & Nada-Bramh
+            Nada-Bramh Lab & Sound Healing
           </span>
           <h1 className="text-4xl md:text-6xl font-serif font-bold text-reveal heading-safe">
-            Research & Development
+            The Science of Sound
           </h1>
           <p className="text-sm text-luxury-secondary max-w-2xl leading-relaxed font-light mt-1">
-            Exploring the therapeutic utility of sound. Using classical Vedic structures, pure sine frequency modulation, and modern acoustic measurements to impact brainwave synchrony and somatic health.
+            An academic and scientific sub-universe exploring the therapeutic utility of sound. Utilizing classical Vedic structures, pure sine frequency modulation, and acoustic resonance mapping to study cognitive wellness.
           </p>
         </div>
 

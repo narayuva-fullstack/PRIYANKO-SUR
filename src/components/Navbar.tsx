@@ -12,10 +12,11 @@ import { BrandLogo } from "@/components/BrandLogo";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
-  { label: "Profile", href: "/profile" },
-  { label: "R & D", href: "/research" },
+  { label: "Journey", href: "/profile" },
+  { label: "Cinema", href: "/cinema" },
   { label: "Discography", href: "/discography" },
-  { label: "Media Gallery", href: "/media" },
+  { label: "Science", href: "/research" },
+  { label: "Media", href: "/media" },
   { label: "Upcoming", href: "/upcoming" },
   { label: "Contact", href: "/contact" },
 ];
@@ -54,27 +55,27 @@ export const Navbar: React.FC = () => {
           }`}
         >
           {/* Logo Identity */}
-          <Link href="/" className="flex items-center gap-3 group select-none">
+          <Link href="/" className="flex items-center gap-3 group select-none shrink-0">
             <BrandLogo variant="gold" size={42} animateOnLoad={true} />
             <div className="flex flex-col">
-              <span className="text-md font-serif font-semibold text-white tracking-wider group-hover:text-luxury-accent transition-colors duration-300">
+              <span className="text-md font-serif font-semibold text-white tracking-wider whitespace-nowrap group-hover:text-luxury-accent transition-colors duration-300">
                 Priyanko Sur
               </span>
-              <span className="text-[9px] font-mono text-luxury-secondary tracking-widest uppercase group-hover:text-white transition-colors duration-300">
+              <span className="text-[9px] font-mono text-luxury-secondary tracking-widest uppercase whitespace-nowrap group-hover:text-white transition-colors duration-300">
                 Music Director
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-0.5 xl:gap-1">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="relative px-4 py-2 text-sm font-medium tracking-wide text-luxury-secondary hover:text-white transition-colors duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-luxury-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="relative px-2.5 py-1.5 text-xs xl:px-4 xl:py-2 xl:text-sm font-medium tracking-wide text-luxury-secondary hover:text-white transition-colors duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-luxury-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <span className="relative z-10">{item.label}</span>
                   {isActive && (
@@ -118,7 +119,7 @@ export const Navbar: React.FC = () => {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-full hover:bg-white/5 border border-transparent hover:border-white/10 text-white transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-luxury-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              className="lg:hidden p-2 rounded-full hover:bg-white/5 border border-transparent hover:border-white/10 text-white transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-luxury-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -134,7 +135,7 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-luxury-bg/95 backdrop-blur-xl flex flex-col justify-center px-8 md:hidden"
+            className="fixed inset-0 z-40 bg-luxury-bg/95 backdrop-blur-xl flex flex-col justify-center px-8 lg:hidden"
           >
             <div className="flex flex-col gap-6 text-center">
               {NAV_ITEMS.map((item, index) => {

@@ -95,7 +95,7 @@ export default function Profile() {
             animate={{ opacity: 1, y: 0 }}
             className="text-[10px] font-mono text-luxury-accent uppercase tracking-widest"
           >
-            Biography & Philosophy
+            The Musical Journey
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -103,7 +103,7 @@ export default function Profile() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-6xl font-serif font-bold heading-safe"
           >
-            The Journey of a Sonic Architect
+            Storytelling Through Sound
           </motion.h1>
         </div>
 
@@ -111,13 +111,13 @@ export default function Profile() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 flex flex-col gap-6 text-sm text-luxury-secondary leading-relaxed font-light">
             <p>
-              Priyanko Sur is an avant-garde Indian singer, music producer, and researcher on Nada-Bramh, Vedic Sanskrit Chanting, and Folk Music. His works merge classical vocal styling with electronic and ambient sound arrangements.
+              Priyanko Sur is a visionary music director, singer, and composer who bridges the ancient, high-vibe parameters of Indian acoustic traditions with contemporary electronic soundscapes and epic orchestral scale.
             </p>
             <p>
-              As a performing artist and composer, Priyanko conducts dedicated research on the medical applications of AUM and Surya Mantras, investigating how acoustic frequencies influence cognitive processing and physical well-being.
+              Fascinated by the emotional and atmospheric capacities of sound, Priyanko spends his creative hours scoring visual narratives, feature films, and documentaries. His signature sonic style integrates traditional vocal chants, soaring acoustic arrangements, and state-of-the-art synthesizer design.
             </p>
             <p>
-              Under the tutelage of his Guru, Surya & Sangeet Sadhak Shree Viswanarayan, Priyanko has spent two decades refining the nuances of Vedic chanting and contemporary New Age music composition, seeking to preserve India&apos;s ancient sonic heritage for future generations.
+              For over twenty years, under the guidance of his Guru, Surya & Sangeet Sadhak Shree Viswanarayan, Priyanko has trained in the science of Vedic Sanskrit chanting and Nada-Bramh (sound as the universe). His ultimate mission is to preserve this sacred sonic heritage while adapting it into a powerful, emotive narrative tool for modern cinema and global audiences.
             </p>
           </div>
           
