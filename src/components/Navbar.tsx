@@ -135,9 +135,9 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-luxury-bg/95 backdrop-blur-xl flex flex-col pt-28 px-8 lg:hidden overflow-y-auto"
+            className="fixed inset-0 z-40 bg-luxury-bg/95 backdrop-blur-xl flex flex-col justify-center px-8 lg:hidden overflow-y-auto"
           >
-            <div className="flex flex-col gap-4 text-center">
+            <div className="flex flex-col gap-3 text-center">
               {NAV_ITEMS.map((item, index) => {
                 const isActive = pathname === item.href;
                 return (
@@ -165,7 +165,7 @@ export const Navbar: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: NAV_ITEMS.length * 0.05 }}
-                className="mt-4 flex justify-center"
+                className="mt-3 flex justify-center"
               >
                 <button
                   onClick={() => {
