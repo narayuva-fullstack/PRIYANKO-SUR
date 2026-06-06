@@ -285,11 +285,11 @@ export const DevotionalEnergyField: React.FC = () => {
         // Opacity profile: fades in at edge, fades out towards center
         let alpha = 0;
         if (w.r < 180) {
-          alpha = (w.r / 180) * 0.07;
+          alpha = (w.r / 180) * 0.18;
         } else {
-          alpha = (1 - (w.r - 180) / (w.maxR - 180)) * 0.07;
+          alpha = (1 - (w.r - 180) / (w.maxR - 180)) * 0.18;
         }
-        alpha = Math.max(0, Math.min(0.07, alpha)) * currentAmp.current;
+        alpha = Math.max(0, Math.min(0.18, alpha)) * currentAmp.current;
         ctx.strokeStyle = w.color.replace("ALPHA", alpha.toString());
 
         const segments = 90;
@@ -343,11 +343,11 @@ export const DevotionalEnergyField: React.FC = () => {
         // Opacity profile
         let alpha = 0;
         if (w.r < 180) {
-          alpha = (w.r / 180) * 0.07;
+          alpha = (w.r / 180) * 0.18;
         } else {
-          alpha = (1 - (w.r - 180) / (w.maxR - 180)) * 0.07;
+          alpha = (1 - (w.r - 180) / (w.maxR - 180)) * 0.18;
         }
-        alpha = Math.max(0, Math.min(0.07, alpha)) * currentAmp.current;
+        alpha = Math.max(0, Math.min(0.18, alpha)) * currentAmp.current;
         ctx.strokeStyle = w.color.replace("ALPHA", alpha.toString());
 
         const segments = 90;
@@ -520,12 +520,12 @@ export const DevotionalEnergyField: React.FC = () => {
       {/* 1. Animated Canvas for Emitters, Frequencies, Particles and Aura */}
       <canvas
         ref={canvasRef}
-        className="fixed inset-0 w-full h-full pointer-events-none z-0 bg-transparent"
-        style={{ mixBlendMode: "screen" }}
+        className="fixed inset-0 w-full h-full pointer-events-none bg-transparent"
+        style={{ mixBlendMode: "screen", zIndex: -1 }}
       />
 
       {/* 2. Concentric Sri Yantra/Mandala Inspired Sacred Geometry Grid */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex items-center justify-center">
+      <div className="fixed inset-0 pointer-events-none overflow-hidden flex items-center justify-center" style={{ zIndex: -1 }}>
         <svg
           className="w-[85vw] h-[85vw] max-w-[850px] opacity-[0.013] text-[#d4af37] animate-spin-slow-centered select-none"
           viewBox="0 0 200 200"

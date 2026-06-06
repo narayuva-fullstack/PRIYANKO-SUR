@@ -109,7 +109,7 @@ export default function Discography() {
   const { currentTrackIndex, isPlaying, playTrack, pauseTrack } = useAudio();
 
   return (
-    <div className="relative min-h-screen bg-luxury-bg text-white py-16 divine-aura-glow-large">
+    <div className="relative min-h-screen text-white py-16 divine-aura-glow-large">
       <div className="max-w-5xl mx-auto px-6 flex flex-col gap-16">
         
         {/* Header */}

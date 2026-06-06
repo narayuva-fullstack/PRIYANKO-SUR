@@ -7,7 +7,7 @@ interface InteractiveCardProps {
   children: React.ReactNode;
   className?: string;
   cardType?: "album" | "music" | "achievement" | "gallery" | "default";
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export const InteractiveCard: React.FC<InteractiveCardProps> = ({

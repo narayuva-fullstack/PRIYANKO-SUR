@@ -6,10 +6,24 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAudio } from "@/context/AudioContext";
 import { Play, Pause, ArrowRight, Activity, Award, ShieldCheck, Calendar, BookOpen } from "lucide-react";
 import { InteractiveCard } from "@/components/InteractiveCard";
+import { usePortalTransition } from "@/context/PortalTransitionContext";
 
 export default function Home() {
   const [showSplash, setShowSplash] = useState(true);
+  const [isLabHovered, setIsLabHovered] = useState(false);
+  const { state: transitionState, triggerTransition } = usePortalTransition();
   const { tracks, currentTrackIndex, isPlaying, playTrack, pauseTrack } = useAudio();
+
+  const handleLabClick = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      const x = e.clientX;
+      const y = e.clientY;
+      triggerTransition("/research", { x, y });
+    } else {
+      triggerTransition("/research", { x: typeof window !== "undefined" ? window.innerWidth / 2 : 0, y: typeof window !== "undefined" ? window.innerHeight / 2 : 0 });
+    }
+  };
 
   const biographyCards = [
     {
@@ -53,7 +67,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-luxury-bg text-white overflow-hidden">
+    <div className="relative min-h-screen text-white overflow-hidden">
       {/* 1. CINEMATIC INTRO SPLASH */}
       <AnimatePresence>
         {showSplash && (
@@ -89,7 +103,12 @@ export default function Home() {
       {/* 2. PREMIUM HERO COMPOSITION (TYPOGRAPHY INTEGRATION) */}
       <section className="relative min-h-screen flex flex-col justify-center items-center px-6 pt-32 pb-20 text-center divine-aura-glow-large">
         {/* Background vignetted portrait (Breathing system) */}
-        <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center">
+        <div 
+          className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center"
+          style={{
+            background: "radial-gradient(circle at center, rgba(5,5,5,1) 0%, rgba(5,5,5,0.85) 35%, rgba(5,5,5,0) 70%)"
+          }}
+        >
           <motion.div
             initial={{ scale: 1.15, filter: "blur(20px)", opacity: 0 }}
             animate={showSplash ? {} : { scale: 1.05, filter: "blur(0px)", opacity: 0.25 }}
@@ -161,7 +180,7 @@ export default function Home() {
       </section>
 
       {/* 3. ARTIST PHILOSOPHY QUOTE (EDITORIAL NEW AGE STYLE) */}
-      <section className="py-24 border-t border-white/5 relative bg-black divine-aura-glow">
+      <section className="py-24 border-t border-white/5 relative divine-aura-glow">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="flex flex-col gap-6 items-center">
             <span className="text-[10px] font-mono text-luxury-accent tracking-[0.2em] uppercase">
@@ -357,65 +376,101 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. CINEMA SCORING & RESEARCH TEASERS */}
       <section className="py-24 border-t border-white/5 relative bg-luxury-surface/10 divine-aura-glow">
         <div className="max-w-5xl mx-auto px-6">
-          <InteractiveCard cardType="default" className="p-8 md:p-12 relative overflow-hidden flex flex-col border-white/5">
-            <div className="absolute inset-0 bg-radial-ambient pointer-events-none opacity-30" />
+          <motion.div
+            animate={
+              transitionState !== "idle"
+                ? transitionState === "initiating"
+                  ? { scale: 0.91, y: 4, filter: "brightness(1.5)" }
+                  : { scale: 1.08, y: -6, filter: "brightness(2)" }
+                : isLabHovered
+                ? {
+                    x: [0, -1.5, 1.5, -1, 1, 0],
+                    y: [0, 4, -10, -3, -7, -6],
+                    rotate: 0,
+                    scale: [1, 0.93, 1.10, 1.04, 1.07, 1.06],
+                    boxShadow: [
+                      "0px 15px 30px rgba(0,0,0,0.4)",
+                      "0px 5px 15px rgba(212,175,55,0.15)",
+                      "0px 35px 70px rgba(212,175,55,0.65)",
+                      "0px 20px 40px rgba(212,175,55,0.35)",
+                      "0px 28px 56px rgba(212,175,55,0.45)",
+                      "0px 28px 56px rgba(212,175,55,0.45)"
+                    ]
+                  }
+                : { x: 0, y: 0, rotate: 0, scale: 1, filter: "brightness(1)", boxShadow: "0px 15px 30px rgba(0,0,0,0.4)" }
+            }
+            transition={{
+              duration: transitionState !== "idle" ? 0.35 : isLabHovered ? 0.48 : 0.25,
+              ease: "easeOut"
+            }}
+            className="w-full"
+          >
+            <InteractiveCard 
+              cardType="default" 
+              onClick={handleLabClick}
+              className="p-8 md:p-12 relative overflow-hidden flex flex-col border-white/5"
+            >
+              <div className="absolute inset-0 bg-radial-ambient pointer-events-none opacity-30" />
 
-            <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center justify-between w-full">
-              <div className="flex flex-col gap-4 max-w-lg">
-                <span className="text-[9px] font-mono text-luxury-accent uppercase tracking-widest hover-tracking">
-                  Cinema & Visual Media
-                </span>
-                <h3 className="text-2xl md:text-3xl font-heading font-bold text-reveal heading-safe">
-                  Scoring Original Visual Narratives
-                </h3>
-                <p className="text-xs text-luxury-secondary leading-relaxed font-sans font-light">
-                  From large-scale orchestral arrangements to intimate narrative sound design. Explore scoring portfolios tailored for Netflix, Disney, and global media producers.
-                </p>
-                <div className="mt-2">
-                  <Link
-                    href="/cinema"
-                    className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-luxury-accent hover:text-white transition-colors group"
-                  >
-                    Explore Cinema Works <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              </div>
-
-              <div className="w-full max-w-[280px] aspect-square rounded-2xl bg-luxury-bg/50 border border-white/5 flex items-center justify-center p-6">
-                <div className="flex flex-col gap-1 items-center w-full">
-                  <div className="flex gap-1 items-end h-16 justify-center w-full">
-                    <div className="w-1 bg-luxury-accent/30 rounded-full h-10 animate-pulse" />
-                    <div className="w-1 bg-luxury-accent/50 rounded-full h-6 animate-pulse delay-75" />
-                    <div className="w-1 bg-luxury-accent rounded-full h-14 animate-pulse" />
-                    <div className="w-1 bg-luxury-accent/50 rounded-full h-8 animate-pulse delay-100" />
-                    <div className="w-1 bg-luxury-accent/30 rounded-full h-12 animate-pulse" />
-                  </div>
-                  <span className="text-[9px] font-mono text-luxury-secondary uppercase mt-4 tracking-widest">
-                    Audio Sync Active
+              <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center justify-between w-full">
+                <div className="flex flex-col gap-4 max-w-lg">
+                  <span className="text-[9px] font-mono text-luxury-accent uppercase tracking-widest hover-tracking">
+                    Cinema & Visual Media
                   </span>
+                  <h3 className="text-2xl md:text-3xl font-heading font-bold text-reveal heading-safe">
+                    Scoring Original Visual Narratives
+                  </h3>
+                  <p className="text-xs text-luxury-secondary leading-relaxed font-sans font-light">
+                    From large-scale orchestral arrangements to intimate narrative sound design. Explore scoring portfolios tailored for Netflix, Disney, and global media producers.
+                  </p>
+                  <div className="mt-2">
+                    <Link
+                      href="/cinema"
+                      className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-luxury-accent hover:text-white transition-colors group"
+                    >
+                      Explore Cinema Works <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="w-full max-w-[280px] aspect-square rounded-2xl bg-luxury-bg/50 border border-white/5 flex items-center justify-center p-6">
+                  <div className="flex flex-col gap-1 items-center w-full">
+                    <div className="flex gap-1 items-end h-16 justify-center w-full">
+                      <div className="w-1 bg-luxury-accent/30 rounded-full h-10 animate-pulse" />
+                      <div className="w-1 bg-luxury-accent/50 rounded-full h-6 animate-pulse delay-75" />
+                      <div className="w-1 bg-luxury-accent rounded-full h-14 animate-pulse" />
+                      <div className="w-1 bg-luxury-accent/50 rounded-full h-8 animate-pulse delay-100" />
+                      <div className="w-1 bg-luxury-accent/30 rounded-full h-12 animate-pulse" />
+                    </div>
+                    <span className="text-[9px] font-mono text-luxury-secondary uppercase mt-4 tracking-widest">
+                      Audio Sync Active
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Secondary Gateway to R&D Lab */}
-            <div className="relative z-10 border-t border-white/5 pt-6 mt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 w-full">
-              <div className="flex flex-col gap-1">
-                <span className="text-[10px] font-mono text-luxury-muted uppercase tracking-wider">Scientific R&D Sub-Universe</span>
-                <p className="text-[11px] text-luxury-secondary font-light max-w-md">
-                  Discover the mathematical parameters of Vedic sound vibration and pure frequencies in the separate R&D portal.
-                </p>
+              {/* Secondary Gateway to R&D Lab */}
+              <div className="relative z-10 border-t border-white/5 pt-6 mt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 w-full">
+                <div className="flex flex-col gap-1">
+                  <span className="text-[10px] font-mono text-luxury-muted uppercase tracking-wider">Scientific R&D Sub-Universe</span>
+                  <p className="text-[11px] text-luxury-secondary font-light max-w-md">
+                    Discover the mathematical parameters of Vedic sound vibration and pure frequencies in the separate R&D portal.
+                  </p>
+                </div>
+                <Link 
+                  href="/research" 
+                  onClick={handleLabClick}
+                  onMouseEnter={() => setIsLabHovered(true)}
+                  onMouseLeave={() => setIsLabHovered(false)}
+                  className="text-[10px] font-mono text-luxury-accent hover:text-white transition-colors flex items-center gap-1 uppercase tracking-widest font-semibold"
+                >
+                  Enter Nada-Bramh Lab &rarr;
+                </Link>
               </div>
-              <Link 
-                href="/research" 
-                className="text-[10px] font-mono text-luxury-accent hover:text-white transition-colors flex items-center gap-1 uppercase tracking-widest font-semibold"
-              >
-                Enter Nada-Bramh Lab &rarr;
-              </Link>
-            </div>
-          </InteractiveCard>
+            </InteractiveCard>
+          </motion.div>
         </div>
       </section>
     </div>

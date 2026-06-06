@@ -85,7 +85,7 @@ const ACCOLADES: Accolade[] = [
 
 export default function Profile() {
   return (
-    <div className="relative min-h-screen bg-luxury-bg text-white py-16 divine-aura-glow-large">
+    <div className="relative min-h-screen text-white py-16 divine-aura-glow-large">
       <div className="max-w-4xl mx-auto px-6 flex flex-col gap-16">
         
         {/* Editorial Header */}

@@ -46,7 +46,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="w-full bg-luxury-bg border-t border-white/5 py-12 md:py-16 mt-auto">
+    <footer className="w-full border-t border-white/5 py-12 md:py-16 mt-auto">
       <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
         {/* Profile identity */}
         <div className="flex flex-col gap-4">

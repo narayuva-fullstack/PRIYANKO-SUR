@@ -73,7 +73,7 @@ export default function Cinema() {
   const { playTrack } = useAudio();
 
   return (
-    <div className="relative min-h-screen bg-luxury-bg text-white py-16 divine-aura-glow-large">
+    <div className="relative min-h-screen text-white py-16 divine-aura-glow-large">
       <div className="absolute inset-0 bg-radial-ambient pointer-events-none opacity-25" />
 
       <div className="max-w-5xl mx-auto px-6 flex flex-col gap-16 relative z-10">

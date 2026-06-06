@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { DevotionalEnergyField } from "@/components/DevotionalEnergyField";
+import { PortalLayoutCoordinator } from "@/components/PortalLayoutCoordinator";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -64,12 +65,14 @@ export default function RootLayout({
         <DevotionalEnergyField />
         <AudioProvider>
           <LanguageProvider>
-            <Navbar />
-            <main className="flex-grow pt-20">
-              {children}
-            </main>
-            <Footer />
-            <AudioPlayer />
+            <PortalLayoutCoordinator>
+              <Navbar />
+              <main className="flex-grow pt-20">
+                {children}
+              </main>
+              <Footer />
+              <AudioPlayer />
+            </PortalLayoutCoordinator>
           </LanguageProvider>
         </AudioProvider>
       </body>
