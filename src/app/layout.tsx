@@ -5,6 +5,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AudioPlayer } from "@/components/AudioPlayer";
+import { DevotionalEnergyField } from "@/components/DevotionalEnergyField";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -60,6 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full scroll-smooth" suppressHydrationWarning>
       <body suppressHydrationWarning className={`${cormorant.variable} ${inter.variable} ${jakarta.variable} ${syne.variable} ${geist.variable} ${geistMono.variable} min-h-full flex flex-col bg-luxury-bg text-luxury-primary font-sans antialiased`}>
+        <DevotionalEnergyField />
         <AudioProvider>
           <LanguageProvider>
             <Navbar />

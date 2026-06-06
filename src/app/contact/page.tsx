@@ -61,7 +61,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="relative min-h-screen bg-luxury-bg text-white py-16">
+    <div className="relative min-h-screen bg-luxury-bg text-white py-16 divine-aura-glow-large">
       <div className="max-w-5xl mx-auto px-6 flex flex-col gap-12">
 
         {/* Header */}
@@ -77,7 +77,7 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mt-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mt-6 items-start divine-aura-glow">
 
           {/* Info Details panel */}
           <div className="lg:col-span-2 flex flex-col gap-8">

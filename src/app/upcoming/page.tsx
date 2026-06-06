@@ -72,7 +72,7 @@ const UPCOMING_PROJECTS: Project[] = [
 
 export default function Upcoming() {
   return (
-    <div className="relative min-h-screen bg-luxury-bg text-white py-16">
+    <div className="relative min-h-screen bg-luxury-bg text-white py-16 divine-aura-glow-large">
       <div className="absolute inset-0 bg-radial-ambient pointer-events-none opacity-20" />
 
       <div className="max-w-5xl mx-auto px-6 flex flex-col gap-16 relative z-10">
@@ -91,7 +91,7 @@ export default function Upcoming() {
         </div>
 
         {/* Projects Asymmetrical Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4 divine-aura-glow">
           {UPCOMING_PROJECTS.map((project, index) => {
             const isLarge = index === 0; // Make the first project span full width on desktop for asymmetrical balance
             return (
@@ -136,7 +136,7 @@ export default function Upcoming() {
         </div>
 
         {/* Dynamic CTA Footer Section */}
-        <div className="glass rounded-3xl p-8 md:p-12 text-center flex flex-col items-center gap-6 border-white/5 mt-8 relative overflow-hidden">
+        <div className="glass rounded-3xl p-8 md:p-12 text-center flex flex-col items-center gap-6 border-white/5 mt-8 relative overflow-hidden divine-aura-glow">
           <div className="absolute inset-0 bg-radial-ambient pointer-events-none opacity-30" />
           <div className="relative z-10 flex flex-col items-center gap-3">
             <span className="text-[10px] font-mono text-luxury-accent uppercase tracking-widest">

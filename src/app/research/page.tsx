@@ -90,7 +90,7 @@ export default function Research() {
   };
 
   return (
-    <div className="relative min-h-screen bg-luxury-bg text-white py-16">
+    <div className="relative min-h-screen bg-luxury-bg text-white py-16 divine-aura-glow-large">
       <div className="max-w-5xl mx-auto px-6 flex flex-col gap-16">
         
         {/* Header Section */}
@@ -107,7 +107,7 @@ export default function Research() {
         </div>
 
         {/* 1. INTERACTIVE OSCILLATOR MATRIX */}
-        <div className="glass rounded-3xl p-6 md:p-10 relative overflow-hidden border-white/5">
+        <div className="glass rounded-3xl p-6 md:p-10 relative overflow-hidden border-white/5 divine-aura-glow">
           <div className="absolute inset-0 bg-radial-ambient pointer-events-none opacity-20" />
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
@@ -202,7 +202,7 @@ export default function Research() {
         </div>
 
         {/* 2. ISCORCE RESEARCH DETAIL */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center py-6 divine-aura-glow">
           <div className="flex flex-col gap-5">
             <span className="text-[10px] font-mono text-luxury-accent uppercase tracking-widest">
               Research Mission
@@ -249,7 +249,7 @@ export default function Research() {
         </div>
 
         {/* 3. RESEARCH VIDEOS PRESENTATION */}
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 divine-aura-glow">
           <div className="flex flex-col gap-2">
             <span className="text-[10px] font-mono text-luxury-accent uppercase tracking-widest">
               Audio-Visual Presentation

@@ -85,7 +85,7 @@ const ACCOLADES: Accolade[] = [
 
 export default function Profile() {
   return (
-    <div className="relative min-h-screen bg-luxury-bg text-white py-16">
+    <div className="relative min-h-screen bg-luxury-bg text-white py-16 divine-aura-glow-large">
       <div className="max-w-4xl mx-auto px-6 flex flex-col gap-16">
         
         {/* Editorial Header */}
@@ -148,7 +148,7 @@ export default function Profile() {
         </div>
 
         {/* Interactive Career Timeline */}
-        <div className="flex flex-col gap-10 mt-6">
+        <div className="flex flex-col gap-10 mt-6 divine-aura-glow">
           <h2 className="text-2xl md:text-4xl font-serif font-bold text-reveal heading-safe">
             Career Timeline
           </h2>
@@ -185,7 +185,7 @@ export default function Profile() {
         </div>
 
         {/* Appreciations Section */}
-        <div className="flex flex-col gap-10 mt-6 pb-12">
+        <div className="flex flex-col gap-10 mt-6 pb-12 divine-aura-glow">
           <div className="flex flex-col gap-2">
             <span className="text-[10px] font-mono text-luxury-accent uppercase tracking-widest">
               Accolades

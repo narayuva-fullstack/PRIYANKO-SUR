@@ -109,7 +109,7 @@ export default function Discography() {
   const { currentTrackIndex, isPlaying, playTrack, pauseTrack } = useAudio();
 
   return (
-    <div className="relative min-h-screen bg-luxury-bg text-white py-16">
+    <div className="relative min-h-screen bg-luxury-bg text-white py-16 divine-aura-glow-large">
       <div className="max-w-5xl mx-auto px-6 flex flex-col gap-16">
         
         {/* Header */}
@@ -126,7 +126,7 @@ export default function Discography() {
         </div>
 
         {/* Albums Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 divine-aura-glow">
           {ALBUM_DATA.map((album) => {
             const isCurrent = currentTrackIndex === album.artworkIndex;
             const isCurrentPlaying = isCurrent && isPlaying;

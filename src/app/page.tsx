@@ -87,7 +87,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* 2. PREMIUM HERO COMPOSITION (TYPOGRAPHY INTEGRATION) */}
-      <section className="relative min-h-screen flex flex-col justify-center items-center px-6 pt-32 pb-20 text-center">
+      <section className="relative min-h-screen flex flex-col justify-center items-center px-6 pt-32 pb-20 text-center divine-aura-glow-large">
         {/* Background vignetted portrait (Breathing system) */}
         <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center">
           <motion.div
@@ -161,7 +161,7 @@ export default function Home() {
       </section>
 
       {/* 3. ARTIST PHILOSOPHY QUOTE (EDITORIAL NEW AGE STYLE) */}
-      <section className="py-24 border-t border-white/5 relative bg-black">
+      <section className="py-24 border-t border-white/5 relative bg-black divine-aura-glow">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="flex flex-col gap-6 items-center">
             <span className="text-[10px] font-mono text-luxury-muted tracking-[0.2em] uppercase">
@@ -221,12 +221,12 @@ export default function Home() {
               <h3 className="text-3xl font-serif font-semibold text-white heading-safe">
                 Vedic Chants and Contemporary Soundscapes
               </h3>
-              <p className="text-sm text-luxury-secondary leading-relaxed font-sans font-light">
+              <p className="text-sm text-luxury-secondary leading-relaxed font-sans font-light lg:max-w-[70%]">
                 Under the guidance of his GuruViswanarayan, Priyanko Sur has mapped the mathematical variables of Vedic meters. By blending traditional vocal intonations with pop, EDM, and world ambient synthesis, he creates sonic textures designed to heal the listener.
               </p>
 
               {/* Overlaying floating frame (overlapping layout depth) */}
-              <div className="relative mt-4">
+              <div className="relative mt-6">
                 <motion.div
                   initial={{ y: 30, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
@@ -249,7 +249,7 @@ export default function Home() {
       </section>
 
       {/* 5. TIMELINE STORYTELLING (ZONE 4: MILestones connected with visual assets) */}
-      <section className="py-24 border-t border-white/5 relative bg-luxury-surface/5">
+      <section className="py-24 border-t border-white/5 relative bg-luxury-surface/5 divine-aura-glow">
         <div className="max-w-5xl mx-auto px-6 flex flex-col gap-12">
 
           <div className="flex flex-col gap-2">
@@ -263,7 +263,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {biographyCards.map((card) => (
-              <InteractiveCard key={card.id} cardType="achievement" className="flex flex-col justify-between h-[380px]">
+              <InteractiveCard key={card.id} cardType="achievement" className="flex flex-col justify-between h-full">
                 <div className="flex flex-col gap-4">
                   <div className={`w-full h-[230px] rounded-lg overflow-hidden relative border border-white/5 ${card.frameClassName} flex items-center justify-center px-2 py-2`}>
                     <img
@@ -358,7 +358,7 @@ export default function Home() {
       </section>
 
       {/* 7. INTERACTIVE RESEARCH TEASER */}
-      <section className="py-24 border-t border-white/5 relative bg-luxury-surface/10">
+      <section className="py-24 border-t border-white/5 relative bg-luxury-surface/10 divine-aura-glow">
         <div className="max-w-5xl mx-auto px-6">
           <InteractiveCard cardType="default" className="p-8 md:p-12 relative overflow-hidden flex flex-col md:flex-row gap-8 items-center justify-between border-white/5">
             <div className="absolute inset-0 bg-radial-ambient pointer-events-none opacity-30" />
