@@ -492,13 +492,15 @@ html[data-lang="ja"], html[data-lang="zh-CN"], html[data-lang="zh-TW"], html[dat
 
 /* Hover state styling */
 .premium-dev-link:hover {
-  color: transparent; /* lets background-clip text show */
+  color: transparent !important;
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.75),
                0 0 20px rgba(212, 175, 55, 0.35);
 }
 
 .premium-dev-link:hover .premium-dev-link-text {
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
   animation: gold-shimmer 2.5s infinite linear;
 }
 
@@ -507,10 +509,12 @@ html[data-lang="ja"], html[data-lang="zh-CN"], html[data-lang="zh-TW"], html[dat
   outline: 2px solid #d4af37;
   outline-offset: 4px;
   box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.25);
-  color: transparent;
+  color: transparent !important;
 }
 .premium-dev-link:focus-visible .premium-dev-link-text {
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
   animation: gold-shimmer 2.5s infinite linear;
 }
 
