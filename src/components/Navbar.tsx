@@ -48,7 +48,7 @@ export const Navbar: React.FC = () => {
         }`}
       >
         <div
-          className={`w-full max-w-5xl transition-all duration-500 flex items-center justify-between px-6 md:px-8 ${
+          className={`w-full max-w-5xl transition-all duration-500 flex items-center justify-between gap-4 lg:gap-8 px-6 md:px-8 ${
             isScrolled
               ? "glass py-3 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-white/5"
               : "bg-transparent py-6 border-b border-transparent"
@@ -68,14 +68,14 @@ export const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-0.5 xl:gap-1">
+          <div className="hidden lg:flex items-center gap-1 xl:gap-2">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="relative px-2.5 py-1.5 text-xs xl:px-4 xl:py-2 xl:text-sm font-medium tracking-wide text-luxury-secondary hover:text-white transition-colors duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-luxury-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  className="relative px-2 py-1 text-[11px] xl:px-3 xl:py-1.5 xl:text-[13px] font-medium tracking-wide text-luxury-secondary hover:text-white transition-colors duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-luxury-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <span className="relative z-10">{item.label}</span>
                   {isActive && (
@@ -91,7 +91,7 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* Action Trigger Buttons / Indicators */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             {/* Healing Tone Visual Indicator */}
             {activeFrequency && (
               <div className="hidden lg:flex items-center gap-2 bg-luxury-accent/10 border border-luxury-accent/20 px-3 py-1 rounded-full text-[10px] font-mono text-luxury-accent animate-pulse">
