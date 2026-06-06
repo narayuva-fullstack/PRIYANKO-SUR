@@ -15,6 +15,7 @@ export default function Contact() {
   const [bookingTypes, setBookingTypes] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleCheckbox = (type: string) => {
     setBookingTypes((prev) =>
@@ -25,14 +26,38 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simulate luxury API form submission
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          bookingTypes,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSubmitSuccess(true);
+        setFormData({ name: "", email: "", phone: "", message: "" });
+        setBookingTypes([]);
+      } else {
+        setSubmitError(result.error || "Failed to submit inquiry. Please try again.");
+      }
+    } catch (err) {
+      console.error("Inquiry submission error:", err);
+      setSubmitError("A connection error occurred. Please verify your network or email info@priyankosur.com directly.");
+    } finally {
       setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setFormData({ name: "", email: "", phone: "", message: "" });
-      setBookingTypes([]);
-    }, 1800);
+    }
   };
 
   return (
@@ -238,6 +263,14 @@ export default function Contact() {
                       className="w-full bg-luxury-surface border border-white/5 focus:border-luxury-accent/40 rounded-xl px-4 py-3 text-sm outline-none text-white transition-all resize-none focus-visible:ring-2 focus-visible:ring-luxury-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                     />
                   </div>
+
+                  {/* Error display */}
+                  {submitError && (
+                    <div className="p-4 rounded-xl border border-red-500/20 bg-red-950/20 text-red-200 text-xs font-mono flex flex-col gap-1.5">
+                      <div className="font-semibold uppercase tracking-wider text-red-400">Submission Error</div>
+                      <p>{submitError}</p>
+                    </div>
+                  )}
 
                   {/* Submit CTA */}
                   <button
