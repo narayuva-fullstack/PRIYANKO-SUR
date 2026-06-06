@@ -63,7 +63,7 @@ export default function Contact() {
   return (
     <div className="relative min-h-screen bg-luxury-bg text-white py-16">
       <div className="max-w-5xl mx-auto px-6 flex flex-col gap-12">
-        
+
         {/* Header */}
         <div className="flex flex-col gap-4 text-center items-center">
           <span className="text-[10px] font-mono text-luxury-accent uppercase tracking-widest">
@@ -78,7 +78,7 @@ export default function Contact() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mt-6 items-start">
-          
+
           {/* Info Details panel */}
           <div className="lg:col-span-2 flex flex-col gap-8">
             <div className="flex flex-col gap-2">
@@ -107,7 +107,7 @@ export default function Contact() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] font-mono text-luxury-secondary uppercase tracking-widest">Booking Hotline</span>
-                  <span className="text-white font-light font-mono">+91 98200 00000</span>
+                  <span className="text-white font-light font-mono">+91 99694 18500</span>
                 </div>
               </div>
 
@@ -235,11 +235,10 @@ export default function Contact() {
                             type="button"
                             key={type}
                             onClick={() => handleCheckbox(type)}
-                            className={`p-3 rounded-xl border text-left transition-all ${
-                              isChecked
+                            className={`p-3 rounded-xl border text-left transition-all ${isChecked
                                 ? "border-luxury-accent/40 bg-luxury-accent/[0.02] text-white"
                                 : "border-white/5 bg-luxury-surface/30 text-luxury-secondary hover:border-white/10"
-                            }`}
+                              }`}
                           >
                             {type}
                           </button>
