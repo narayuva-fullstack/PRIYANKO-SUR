@@ -73,8 +73,8 @@ export default function RootLayout({
                 {children}
               </main>
               <Footer />
-              <AudioPlayer />
             </PortalLayoutCoordinator>
+            <AudioPlayer />
           </LanguageProvider>
         </AudioProvider>
       </body>

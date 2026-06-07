@@ -894,41 +894,11 @@ html[data-lang="ko"] {
 
 /* Responsive wrapper to block background waves from overlapping hero portrait */
 .hero-block-bg {
-  background: #050505 !important; /* Solid block on all viewports to block golden OM waves from showing through */
+  background: #050505 !important; /* Solid block on mobile viewports */
 }
 
-/* ==========================================
-   CINEMATIC HERO BOTTOM FADE TRANSITION
-   ========================================== */
-
-.hero-fade-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 240px;
-  pointer-events: none;
-  z-index: 5;
-  background: linear-gradient(
-    to bottom,
-    rgba(5, 5, 5, 0) 0%,
-    rgba(5, 5, 5, 0.2) 30%,
-    rgba(5, 5, 5, 0.55) 55%,
-    rgba(5, 5, 5, 0.85) 75%,
-    rgba(5, 5, 5, 1) 100%
-  );
-}
-
-@media (max-width: 768px) {
-  .hero-fade-overlay {
-    height: 160px;
-    background: linear-gradient(
-      to bottom,
-      rgba(5, 5, 5, 0) 0%,
-      rgba(5, 5, 5, 0.15) 25%,
-      rgba(5, 5, 5, 0.4) 50%,
-      rgba(5, 5, 5, 0.75) 75%,
-      rgba(5, 5, 5, 1) 100%
-    );
+@media (min-w: 768px) {
+  .hero-block-bg {
+    background: radial-gradient(circle at center, rgba(5,5,5,1) 0%, rgba(5,5,5,1) 45%, rgba(5,5,5,0) 75%) !important; /* Smooth fade on desktop */
   }
 }
